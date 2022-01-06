@@ -1,10 +1,14 @@
+;
+;   Source code written by Gabriel Correia
+;
+
 bits 16
 
 %define VGA_TB_GREEN 0xa
 %define VGA_TEXT_BUFFER 0xb8000
 
-;   Putting everything that's comes below at the offset 0x7c00 (
-;   The address where the BIOS will search for the Bootloader)
+;   Putting everything that's comes below at the offset 0x7c00
+;   (The address where the BIOS will search for the MBR)
 org 0x7c00
 
 ; Everything starts here
@@ -19,15 +23,15 @@ boot_entry:
     mov ax, 0x3
     int 0x10
     
-    ; Loading the GDT
+    ; Loading the Global Descriptor Table
     cli
     lgdt [gdt_location]
 
     mov eax, cr0
     or eax, 1
     mov cr0, eax
-    ; Landing to protected mode
-    jmp CODE_SEG:land_to_protected_mode
+    ; F*ck real mode gonna to protected mode
+    jmp CODE_SEG:_protected_mode_segment
 
 ; GDT Segment
 gdt_start:
@@ -59,7 +63,7 @@ CODE_SEG equ code_segment - gdt_start
 DATA_SEG equ data_segment - gdt_start
 
 bits 32
-land_to_protected_mode:
+_protected_mode_segment:
     mov ax, DATA_SEG
     mov ds, ax
     mov es, ax

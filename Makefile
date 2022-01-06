@@ -8,8 +8,8 @@ BOOT_PROGRAM_SRC=\
 
 all: $(BOOT_PROGRAM)
 
-run:
-	qemu-system-i386 -drive file=hello-boot,format=raw
+run: $(BOOT_PROGRAM)
+	qemu-system-i386 -drive file=$(BOOT_PROGRAM),format=raw
 
 $(BOOT_PROGRAM): $(BOOT_PROGRAM_SRC)
 	$(AS) $(ASFLAGS) -o $@ $^

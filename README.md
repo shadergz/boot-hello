@@ -4,7 +4,7 @@ A simple hello world Master Boot Record program
 
 ![alt text](qemu-hello.png "boot-hello")
 
-## How to build
+## How to build and run the "MBR code"
 
 Programs needed:
 
@@ -14,10 +14,10 @@ Programs needed:
 Compile with:
 
 ```bash
-make
+make run
 ```
 
-The MGR scalle to priviledge mode with a GDT structure:
+The MBR program scalle to priviledge mode with a GDT structure:
 
 ```as
 ; GDT Segment
@@ -44,9 +44,9 @@ gdt_end:
 
 ```
 
-> On the priviledge mode the VGA buffer control is availabe to us and we can't access any BIOS service
+> On the priviledge mode the VGA buffer control is availabe to us and we can't access any BIOS service routines
 
-The write function operation action directly into the VGA buffer:
+The write function operation act directly into the VGA buffer:
 
 ```as
 write:
