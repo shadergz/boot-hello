@@ -13,7 +13,7 @@ org 0x7c00
 
 ; Everything starts here
 boot_entry:
-    ; Cleaning GPR (Initializing segment registers)
+    ; Cleaning GPRs (Initializing segment registers)
     xor ax, ax
     mov ds, ax
     mov es, ax
@@ -38,7 +38,7 @@ gdt_start:
     ; Nullable structure
     dq 0
 code_segment:
-    ; Code segment structure data
+    ; Code segment, structure data
     dw 0xFFFF
     dw 0x0
     db 0x0
@@ -46,7 +46,7 @@ code_segment:
     db 11001111b
     db 0x0
 data_segment:
-    ; Data segment structure data
+    ; Data segment, structure data
     dw 0xFFFF
     dw 0x0
     db 0x0
@@ -78,8 +78,8 @@ _protected_mode_segment:
     mov edi, hello_world
     call write
 
-    ;   Disabling all INT and making the CPU wait for the next INT
-    ;   (This will cause a infinite loop)
+    ; Disabling all INT and making the CPU wait for the next INT
+    ; (This will cause a infinite loop)
     cli
     hlt
 

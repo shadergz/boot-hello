@@ -1,24 +1,19 @@
 # boot-hello
-
 A simple hello world Master Boot Record program
 
 ![alt text](qemu-hello.png "boot-hello")
 
-## How to build and run the "MBR code"
-
+### How to build and run the "MBR code"
 Programs needed:
-
 - nasm
 - qemu (i386)
 
 Compile with:
-
 ```bash
 make run
 ```
 
-The MBR program scalle to priviledge mode with a GDT structure:
-
+### The MBR program escalates to privilege mode with a GDT structure:
 ```as
 ; GDT Segment
 gdt_start:
@@ -44,9 +39,9 @@ gdt_end:
 
 ```
 
-> On the priviledge mode the VGA buffer control is availabe to us and we can't access any BIOS service routines
+> In privilege mode, the VGA buffer control is available to us, and we can't access any BIOS service routines
 
-The write function operation act directly into the VGA buffer:
+The write function operation acts directly on the VGA buffer:
 
 ```as
 write:
@@ -66,5 +61,4 @@ write:
     jmp .write_LOOP
 .write_done:
     ret
-
 ```
